@@ -15,7 +15,6 @@ namespace payslipV2
             Console.Write("Please input your surname: ");
             string nameLast = Console.ReadLine();
             Person1.Name = nameFirst + " " + nameLast;
-            Console.WriteLine(Person1.Name);
 
             // Read salary
             Console.Write("Please enter your annual salary: ");
