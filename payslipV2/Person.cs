@@ -15,6 +15,55 @@ namespace payslipV2
         private double monthlyTax;
         private double monthlyNetIncome;
         private double monthlySuper;
+        
+        // Getters & Setters
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
+
+        public double AnnualSalary
+        {
+            get => annualSalary;
+            set => annualSalary = value;
+        }
+
+        public double SuperRate
+        {
+            get => superRate;
+            set => superRate = value;
+        }
+
+        public string PayPeriod
+        {
+            get => payPeriod;
+            set => payPeriod = value;
+        }
+
+        public double MonthlyGrossIncome
+        {
+            get => monthlyGrossIncome;
+            set => monthlyGrossIncome = value;
+        }
+
+        public double MonthlyTax
+        {
+            get => monthlyTax;
+            set => monthlyTax = value;
+        }
+
+        public double MonthlyNetIncome
+        {
+            get => monthlyNetIncome;
+            set => monthlyNetIncome = value;
+        }
+
+        public double MonthlySuper
+        {
+            get => monthlySuper;
+            set => monthlySuper = value;
+        }
 
         // Initialisation Constructor
         public Person()
@@ -27,88 +76,6 @@ namespace payslipV2
             this.monthlyTax = 0.00;
             this.monthlyNetIncome = 0.00;
             this.monthlySuper = 0.00;
-        }
-
-        // Setters
-        public void SetName(string nameFirst, string nameLast)
-        {
-            this.name = nameFirst + " " + nameLast;
-        }
-
-        public void SetAnnualSalary(double input)
-        {
-            this.annualSalary = input;
-        }
-
-        public void SetSuperRate(double input)
-        {
-            this.superRate = input;
-        }
-
-        public void SetPayPeriod(string dateStart, string dateEnd)
-        {
-            this.payPeriod = dateStart + " - " + dateEnd;
-        }
-
-        public void SetMonthlyGrossIncome(double input)
-        {
-            this.monthlyGrossIncome = input;
-        }
-
-        public void SetMonthlyTax(double input)
-        {
-            this.monthlyTax = input;
-        }
-
-        public void SetMonthlyNetIncome(double input)
-        {
-            this.monthlyNetIncome = input;
-        }
-
-        public void SetMonthlySuper(double input)
-        {
-            this.monthlySuper = input;
-        }
-
-        // Getters
-        public string GetName()
-        {
-            return this.name;
-        }
-        
-        public double GetAnnualSalary()
-        {
-            return this.annualSalary;
-        }
-        
-        public double GetSuperRate()
-        {
-            return this.superRate;
-        }
-        
-        public string GetPayPeriod()
-        {
-            return this.payPeriod;
-        }
-
-        public double GetMonthlyGrossIncome()
-        {
-            return this.monthlyGrossIncome;
-        }
-
-        public double GetMonthlyTax()
-        {
-            return this.monthlyTax;
-        }
-        
-        public double GetMonthlyNetIncome()
-        {
-            return this.monthlyNetIncome;
-        }
-
-        public double GetMonthlySuper()
-        {
-            return this.monthlySuper;
         }
     }
 }
