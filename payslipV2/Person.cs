@@ -16,6 +16,19 @@ namespace payslipV2
         private double monthlyNetIncome;
         private double monthlySuper;
         
+        // Initialisation Constructor
+        public Person()
+        {
+            this.name = "";
+            this.annualSalary = 0.00;
+            this.superRate = 0.00;
+            this.payPeriod = "";
+            this.monthlyGrossIncome = 0.00;
+            this.monthlyTax = 0.00;
+            this.monthlyNetIncome = 0.00;
+            this.monthlySuper = 0.00;
+        }
+        
         // Getters & Setters
         public string Name
         {
@@ -63,19 +76,6 @@ namespace payslipV2
         {
             get => monthlySuper;
             set => monthlySuper = value;
-        }
-
-        // Initialisation Constructor
-        public Person()
-        {
-            this.name = "";
-            this.annualSalary = 0.00;
-            this.superRate = 0.00;
-            this.payPeriod = "";
-            this.monthlyGrossIncome = 0.00;
-            this.monthlyTax = 0.00;
-            this.monthlyNetIncome = 0.00;
-            this.monthlySuper = 0.00;
         }
     }
 }

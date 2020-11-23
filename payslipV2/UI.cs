@@ -36,14 +36,19 @@ namespace payslipV2
 
         public void ProcessData()
         {
+            // Calculate monthly gross income
             Person1.MonthlyGrossIncome = Finance1.CalculateMonthlyGrossIncome(Person1.AnnualSalary);
+            // Calculate monthly tax
             Person1.MonthlyTax = Finance1.CalculateMonthlyTax(Person1.AnnualSalary);
+            // Calculate monthly net income
             Person1.MonthlyNetIncome = Finance1.CalculateMonthlyNetIncome(Person1.MonthlyGrossIncome, Person1.MonthlyTax);
+            // Calculate monthly super
             Person1.MonthlySuper = Finance1.CalculateMonthlySuper(Person1.AnnualSalary, Person1.SuperRate);
         }
 
         public void PrintPayslip()
         {
+            // Print payslip as per kata specification
             Console.WriteLine("\nYour payslip has been generated! \n");
             Console.WriteLine("Name: " + Person1.Name);
             Console.WriteLine("Pay Period: " + Person1.PayPeriod);
