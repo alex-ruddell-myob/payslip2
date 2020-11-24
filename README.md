@@ -1,4 +1,4 @@
-# Payslip V2
+# Payslip2
 Second iteration of the MYOB Payslip kata
 
 ## Architecture
