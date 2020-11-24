@@ -1,2 +1,7 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7AB20E05_002D198B_002D4AFD_002DB3AC_002D0FCBD1B394C6_002Ff_003AProgram_002Ecs/@EntryIndexedValue">ForceIncluded</s:String></wpf:ResourceDictionary>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7AB20E05_002D198B_002D4AFD_002DB3AC_002D0FCBD1B394C6_002Ff_003AProgram_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8a70ff49_002Dbe7e_002D4013_002D9fa7_002D16064ce8379e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Tests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::498A7FAF-7EB8-4C55-89B6-31A059129AEF::.NETFramework,Version=v4.8::Tests.Tests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

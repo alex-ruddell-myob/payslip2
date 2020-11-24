@@ -4,8 +4,8 @@ namespace payslipV2
 {
     class UI
     {
-        public static Person Person1 = new Person();
-        public static Finance Finance1 = new Finance();
+        public static Person Person = new Person();
+        public static Finance Finance = new Finance();
 
         public void ReadData()
         {
@@ -14,48 +14,48 @@ namespace payslipV2
             string nameFirst = Console.ReadLine();
             Console.Write("Please input your surname: ");
             string nameLast = Console.ReadLine();
-            Person1.Name = nameFirst + " " + nameLast;
+            Person.Name = nameFirst + " " + nameLast;
 
             // Read salary
             Console.Write("Please enter your annual salary: ");
             string salary = Console.ReadLine();
-            Person1.AnnualSalary = Double.Parse(salary);
+            Person.AnnualSalary = Double.Parse(salary);
 
             // Read super
             Console.Write("Please enter your super rate: ");
             string super = Console.ReadLine();
-            Person1.SuperRate = Double.Parse(super);
+            Person.SuperRate = Double.Parse(super);
             
             // Read pay period
             Console.Write("Please enter your payment start date: ");
             string dateStart = Console.ReadLine();
             Console.Write("Please enter your payment end date: ");
             string dateEnd = Console.ReadLine();
-            Person1.PayPeriod = dateStart + " - " + dateEnd;
+            Person.PayPeriod = dateStart + " - " + dateEnd;
         }
 
-        public void ProcessData()
+        public void ProcessData() // <<<
         {
             // Calculate monthly gross income
-            Person1.MonthlyGrossIncome = Finance1.CalculateMonthlyGrossIncome(Person1.AnnualSalary);
+            Person.MonthlyGrossIncome = Finance.CalculateMonthlyGrossIncome(Person.AnnualSalary);
             // Calculate monthly tax
-            Person1.MonthlyTax = Finance1.CalculateMonthlyTax(Person1.AnnualSalary);
+            Person.MonthlyTax = Finance.CalculateMonthlyTax(Person.AnnualSalary);
             // Calculate monthly net income
-            Person1.MonthlyNetIncome = Finance1.CalculateMonthlyNetIncome(Person1.MonthlyGrossIncome, Person1.MonthlyTax);
+            Person.MonthlyNetIncome = Finance.CalculateMonthlyNetIncome(Person.MonthlyGrossIncome, Person.MonthlyTax);
             // Calculate monthly super
-            Person1.MonthlySuper = Finance1.CalculateMonthlySuper(Person1.AnnualSalary, Person1.SuperRate);
+            Person.MonthlySuper = Finance.CalculateMonthlySuper(Person.AnnualSalary, Person.SuperRate);
         }
 
         public void PrintPayslip()
         {
             // Print payslip as per kata specification
             Console.WriteLine("\nYour payslip has been generated! \n");
-            Console.WriteLine("Name: " + Person1.Name);
-            Console.WriteLine("Pay Period: " + Person1.PayPeriod);
-            Console.WriteLine("Gross Income: " + Person1.MonthlyGrossIncome);
-            Console.WriteLine("Income Tax: " + Person1.MonthlyTax);
-            Console.WriteLine("Net Income: " + Person1.MonthlyNetIncome);
-            Console.WriteLine("Super: " + Person1.MonthlySuper);
+            Console.WriteLine("Name: " + Person.Name);
+            Console.WriteLine("Pay Period: " + Person.PayPeriod);
+            Console.WriteLine("Gross Income: " + Person.MonthlyGrossIncome);
+            Console.WriteLine("Income Tax: " + Person.MonthlyTax);
+            Console.WriteLine("Net Income: " + Person.MonthlyNetIncome);
+            Console.WriteLine("Super: " + Person.MonthlySuper);
             Console.WriteLine("\nThank you for using MYOB!");
         }
 

@@ -4,18 +4,18 @@ namespace payslipV2
 {
     class Program
     {
-        public static UI Interface = new UI();
+        public static UI UI = new UI();
         
         static void Main(string[] args)
         {
             // Read Data
-            Interface.ReadData();
+            UI.ReadData(); // <<<
             
             // Process Data
-            Interface.ProcessData();
+            UI.ProcessData();
             
             // Print data
-            Interface.PrintPayslip();
+            UI.PrintPayslip();
         }
     }
 }

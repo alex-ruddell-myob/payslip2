@@ -2,7 +2,7 @@ using System;
 
 namespace payslipV2
 {
-    class Finance
+    public class Finance
     {
         // Tax rates correspond to the salary brackets stated
         private double[] taxRate = new double[5] {0, 0.19, 0.325, 0.37, 0.45};
@@ -27,15 +27,15 @@ namespace payslipV2
         
         public double CalculateMonthlyTax(double annualSalary)
         {
-            double salary = annualSalary;
             double annualTax = 0.00;
 
-            for (int i = 4; i >= 0; i--)
+            // Sums tax contributions based on salary tax brackets
+            for (int i = salaryBracket.Length; i >= 0; i--)
             {
-                if (annualSalary > salaryBracket[i])
+                if (annualSalary >= salaryBracket[i])
                 {
-                    annualTax += (salary - salaryBracket[i]) * taxRate[i];
-                    salary -= (annualSalary - salaryBracket[i]);
+                    annualTax += (annualSalary - salaryBracket[i]) * taxRate[i];
+                    annualSalary = salaryBracket[i];
                 }
             }
 
