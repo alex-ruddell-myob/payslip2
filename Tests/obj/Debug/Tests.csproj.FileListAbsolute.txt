@@ -1,2 +1,0 @@
-/Users/Alex.Ruddell/Documents/payslipV2/Tests/obj/Debug/Tests.csprojAssemblyReference.cache
-/Users/Alex.Ruddell/Documents/payslipV2/Tests/obj/Debug/Tests.csproj.CoreCompileInputs.cache
