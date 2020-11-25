@@ -7,6 +7,20 @@ namespace payslipV2
         // Tax rates correspond to the salary brackets stated
         private double[] taxRate = new double[5] {0, 0.19, 0.325, 0.37, 0.45};
         private double[] salaryBracket = new double[5] {0, 18200, 37000, 87000, 180000};
+
+        public Payslip GeneratePayslip(EmployeeData Employee)
+        {
+            Payslip Payslip = new Payslip();
+
+            Payslip.Name = Employee.Name;
+            Payslip.PayPeriod = Employee.PayPeriod;
+            Payslip.MonthlyGrossIncome = CalculateMonthlyGrossIncome(Employee.AnnualSalary);
+            Payslip.MonthlyTax = CalculateMonthlyTax(Employee.AnnualSalary);
+            Payslip.MonthlyNetIncome = CalculateMonthlyNetIncome(Payslip.MonthlyGrossIncome, Payslip.MonthlyTax);
+            Payslip.MonthlySuper = CalculateMonthlySuper(Employee.AnnualSalary, Employee.SuperRate);
+
+            return Payslip;
+        }
         
         public double CalculateMonthlyTax(double annualSalary)
         {

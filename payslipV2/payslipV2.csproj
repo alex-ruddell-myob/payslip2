@@ -4,6 +4,7 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
 
+        <!-- Added this line in to stop a duplicate entry point forming -->
         <GenerateProgramFile>false</GenerateProgramFile>
     </PropertyGroup>
 

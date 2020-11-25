@@ -2,19 +2,18 @@ using System;
 
 namespace payslipV2
 {
-    class IO
+    class ConsoleInputOutput : IInputOutput
     {
-        public static Person Person = new Person();
-        public static FinancialCalculator FinancialCalculator = new FinancialCalculator();
-
-        public void ReadData()
+        public EmployeeData ReadData()
         {
+            EmployeeData Employee = new EmployeeData();
+            
             // Read name
             Console.Write("Please input your first name: ");
             string nameFirst = Console.ReadLine();
             Console.Write("Please input your surname: ");
             string nameLast = Console.ReadLine();
-            Person.Name = nameFirst + " " + nameLast;
+            Employee.Name = nameFirst + " " + nameLast;
 
             // Read salary
             string salary;
@@ -25,7 +24,7 @@ namespace payslipV2
                 {
                     Console.Write("Please enter your annual salary: ");
                     salary = Console.ReadLine();
-                    Person.AnnualSalary = Double.Parse(salary);
+                    Employee.AnnualSalary = Double.Parse(salary);
                     repeat = false;
                 }
                 catch (FormatException e)
@@ -38,44 +37,41 @@ namespace payslipV2
             // Read super
             Console.Write("Please enter your super rate: ");
             string super = Console.ReadLine();
-            Person.SuperRate = Double.Parse(super);
+            Employee.SuperRate = Double.Parse(super);
             
             // Read pay period
             Console.Write("Please enter your payment start date: ");
             string dateStart = Console.ReadLine();
             Console.Write("Please enter your payment end date: ");
             string dateEnd = Console.ReadLine();
-            Person.PayPeriod = dateStart + " - " + dateEnd;
+            Employee.PayPeriod = dateStart + " - " + dateEnd;
+
+            return Employee;
         }
 
-        public void ProcessData() // <<<
-        {
-            // Calculate monthly gross income
-            Person.MonthlyGrossIncome = FinancialCalculator.CalculateMonthlyGrossIncome(Person.AnnualSalary);
-            // Calculate monthly tax
-            Person.MonthlyTax = FinancialCalculator.CalculateMonthlyTax(Person.AnnualSalary);
-            // Calculate monthly net income
-            Person.MonthlyNetIncome = FinancialCalculator.CalculateMonthlyNetIncome(Person.MonthlyGrossIncome, Person.MonthlyTax);
-            // Calculate monthly super
-            Person.MonthlySuper = FinancialCalculator.CalculateMonthlySuper(Person.AnnualSalary, Person.SuperRate);
-        }
-
-        public void PrintPayslip()
+        public void PrintPayslip(Payslip Payslip)
         {
             // Print payslip as per kata specification
             Console.WriteLine("\nYour payslip has been generated! \n");
-            Console.WriteLine("Name: " + Person.Name);
-            Console.WriteLine("Pay Period: " + Person.PayPeriod);
-            Console.WriteLine("Gross Income: " + Person.MonthlyGrossIncome);
-            Console.WriteLine("Income Tax: " + Person.MonthlyTax);
-            Console.WriteLine("Net Income: " + Person.MonthlyNetIncome);
-            Console.WriteLine("Super: " + Person.MonthlySuper);
+            Console.WriteLine("Name: " + Payslip.Name);
+            Console.WriteLine("Pay Period: " + Payslip.PayPeriod);
+            Console.WriteLine("Gross Income: " + Payslip.MonthlyGrossIncome);
+            Console.WriteLine("Income Tax: " + Payslip.MonthlyTax);
+            Console.WriteLine("Net Income: " + Payslip.MonthlyNetIncome);
+            Console.WriteLine("Super: " + Payslip.MonthlySuper);
             Console.WriteLine("\nThank you for using MYOB!");
         }
 
-        public IO()
+        public ConsoleInputOutput()
         {
             Console.WriteLine("Welcome to the payslip generator! Get ready for the most fun you've had ever!!!");
         }
+
+        /*
+        ~ConsoleInputOutput()
+        {
+            Console.WriteLine("\nThank you for using MYOB!");
+        }
+        */
     }
 }

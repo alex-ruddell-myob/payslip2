@@ -7,19 +7,22 @@ namespace PayslipTesting
 {
     public class Tests
     {
+        private FinancialCalculator _financialCalculator;
+
         [SetUp]
         public void Setup()
         {
-            
+            _financialCalculator = new FinancialCalculator();
         }
 
         [Test]
         public void ExceptionTest()
         {
             // Test prescribed by payslip kata
-            FinancialCalculator financialCalculator = new FinancialCalculator();
+            
+            // apply testcases <<<
             double expected = 0;
-            double result = financialCalculator.TaxCalculatorBroken(60050);
+            double result = _financialCalculator.TaxCalculatorBroken(60050);
 
             Assert.AreEqual(expected, result);
         }

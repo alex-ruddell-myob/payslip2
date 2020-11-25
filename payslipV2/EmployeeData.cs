@@ -3,32 +3,23 @@ using System.Runtime.CompilerServices;
 
 namespace payslipV2
 {
-    class Person
+    public class EmployeeData
     {
         // Input variables
         private string name;
         private double annualSalary;
         private double superRate;
         private string payPeriod;
-        // Calculated variables
-        private double monthlyGrossIncome;
-        private double monthlyTax;
-        private double monthlyNetIncome;
-        private double monthlySuper;
         
         // Initialisation Constructor
-        public Person()
+        public EmployeeData()
         {
             this.name = "";
             this.annualSalary = 0.00;
             this.superRate = 0.00;
             this.payPeriod = "";
-            this.monthlyGrossIncome = 0.00;
-            this.monthlyTax = 0.00;
-            this.monthlyNetIncome = 0.00;
-            this.monthlySuper = 0.00;
         }
-        
+
         // Getters & Setters
         public string Name
         {
@@ -52,30 +43,6 @@ namespace payslipV2
         {
             get => payPeriod;
             set => payPeriod = value;
-        }
-
-        public double MonthlyGrossIncome
-        {
-            get => monthlyGrossIncome;
-            set => monthlyGrossIncome = value;
-        }
-
-        public double MonthlyTax
-        {
-            get => monthlyTax;
-            set => monthlyTax = value;
-        }
-
-        public double MonthlyNetIncome
-        {
-            get => monthlyNetIncome;
-            set => monthlyNetIncome = value;
-        }
-
-        public double MonthlySuper
-        {
-            get => monthlySuper;
-            set => monthlySuper = value;
         }
     }
 }
