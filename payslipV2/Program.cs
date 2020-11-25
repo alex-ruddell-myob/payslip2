@@ -4,18 +4,24 @@ namespace payslipV2
 {
     class Program
     {
-        public static UI UI = new UI();
+        public static IO SystemIO = new IO();
         
         static void Main(string[] args)
         {
+            // New structure...
+            // Person = SystemIO Read Data and assign it to a person
+            // Payslip = GeneratePayslip(Person)
+            // Message Out = Payslip.Print
+
+
             // Read Data
-            UI.ReadData(); // <<<
+            SystemIO.ReadData(); // <<<
             
             // Process Data
-            UI.ProcessData();
+            SystemIO.ProcessData();
             
             // Print data
-            UI.PrintPayslip();
+            SystemIO.PrintPayslip();
         }
     }
 }

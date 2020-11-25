@@ -2,7 +2,7 @@ using System;
 
 namespace payslipV2
 {
-    public class Finance
+    public class FinancialCalculator
     {
         // Tax rates correspond to the salary brackets stated
         private double[] taxRate = new double[5] {0, 0.19, 0.325, 0.37, 0.45};
@@ -11,7 +11,7 @@ namespace payslipV2
         public double CalculateMonthlyTax(double annualSalary)
         {
             double annualTax = 0.00;
-
+            
             // Sums tax contributions based on salary tax brackets
             for (int i = salaryBracket.Length - 1; i >= 0; i--)
             {
@@ -20,6 +20,30 @@ namespace payslipV2
                     annualTax += (annualSalary - salaryBracket[i]) * taxRate[i];
                     annualSalary = salaryBracket[i];
                 }
+            }
+
+            double monthlyTax = Math.Round(annualTax / 12);
+            return monthlyTax;
+        }
+
+        public double TaxCalculatorBroken(double annualSalary)
+        {
+            double annualTax = 0.00;
+
+            try
+            {
+                for (int i = salaryBracket.Length; i >= 0; i--) // .Length gives 5, but max index is 4
+                {
+                    if (annualSalary > salaryBracket[i])
+                    {
+                        annualTax += (annualSalary - salaryBracket[i]) * taxRate[i];
+                        annualSalary = salaryBracket[i];
+                    }
+                }
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Console.WriteLine("Error: Index Out Of Range in Finance.TaxCalculator", e.Message);
             }
 
             double monthlyTax = Math.Round(annualTax / 12);

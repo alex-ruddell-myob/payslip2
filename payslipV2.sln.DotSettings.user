@@ -23,6 +23,7 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e2b97f2d_002Dfe03_002D4ed1_002Da189_002D31f9ab6e59ea/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1 #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::9EE659B9-233F-4804-848F-F0B1FBBF300A::.NETCoreApp,Version=v3.1::PayslipTesting.Tests&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::9EE659B9-233F-4804-848F-F0B1FBBF300A::.NETCoreApp,Version=v3.1::PayslipTesting.FinanceTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f929b5ad_002D2a0d_002D4a56_002Db0de_002D988da55488ba/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1 #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;

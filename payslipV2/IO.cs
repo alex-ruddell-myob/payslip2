@@ -2,10 +2,10 @@ using System;
 
 namespace payslipV2
 {
-    class UI
+    class IO
     {
         public static Person Person = new Person();
-        public static Finance Finance = new Finance();
+        public static FinancialCalculator FinancialCalculator = new FinancialCalculator();
 
         public void ReadData()
         {
@@ -17,9 +17,23 @@ namespace payslipV2
             Person.Name = nameFirst + " " + nameLast;
 
             // Read salary
-            Console.Write("Please enter your annual salary: ");
-            string salary = Console.ReadLine();
-            Person.AnnualSalary = Double.Parse(salary);
+            string salary;
+            bool repeat = true;
+            while (repeat)
+            {
+                try
+                {
+                    Console.Write("Please enter your annual salary: ");
+                    salary = Console.ReadLine();
+                    Person.AnnualSalary = Double.Parse(salary);
+                    repeat = false;
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine("Error in UI.ReadData(): Invalid casting to double");
+                    repeat = true;
+                }
+            }
 
             // Read super
             Console.Write("Please enter your super rate: ");
@@ -37,13 +51,13 @@ namespace payslipV2
         public void ProcessData() // <<<
         {
             // Calculate monthly gross income
-            Person.MonthlyGrossIncome = Finance.CalculateMonthlyGrossIncome(Person.AnnualSalary);
+            Person.MonthlyGrossIncome = FinancialCalculator.CalculateMonthlyGrossIncome(Person.AnnualSalary);
             // Calculate monthly tax
-            Person.MonthlyTax = Finance.CalculateMonthlyTax(Person.AnnualSalary);
+            Person.MonthlyTax = FinancialCalculator.CalculateMonthlyTax(Person.AnnualSalary);
             // Calculate monthly net income
-            Person.MonthlyNetIncome = Finance.CalculateMonthlyNetIncome(Person.MonthlyGrossIncome, Person.MonthlyTax);
+            Person.MonthlyNetIncome = FinancialCalculator.CalculateMonthlyNetIncome(Person.MonthlyGrossIncome, Person.MonthlyTax);
             // Calculate monthly super
-            Person.MonthlySuper = Finance.CalculateMonthlySuper(Person.AnnualSalary, Person.SuperRate);
+            Person.MonthlySuper = FinancialCalculator.CalculateMonthlySuper(Person.AnnualSalary, Person.SuperRate);
         }
 
         public void PrintPayslip()
@@ -59,7 +73,7 @@ namespace payslipV2
             Console.WriteLine("\nThank you for using MYOB!");
         }
 
-        public UI()
+        public IO()
         {
             Console.WriteLine("Welcome to the payslip generator! Get ready for the most fun you've had ever!!!");
         }
