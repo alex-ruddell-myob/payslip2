@@ -40,30 +40,6 @@ namespace payslipV2
             return monthlyTax;
         }
 
-        public double TaxCalculatorBroken(double annualSalary)
-        {
-            double annualTax = 0.00;
-
-            try
-            {
-                for (int i = salaryBracket.Length; i >= 0; i--) // .Length gives 5, but max index is 4
-                {
-                    if (annualSalary > salaryBracket[i])
-                    {
-                        annualTax += (annualSalary - salaryBracket[i]) * taxRate[i];
-                        annualSalary = salaryBracket[i];
-                    }
-                }
-            }
-            catch (IndexOutOfRangeException e)
-            {
-                Console.WriteLine("Error: Index Out Of Range in Finance.TaxCalculator", e.Message);
-            }
-
-            double monthlyTax = Math.Round(annualTax / 12);
-            return monthlyTax;
-        }
-        
         public double CalculateMonthlyGrossIncome(double annualSalary)
         {
             return Math.Floor(annualSalary / 12);
