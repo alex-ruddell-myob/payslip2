@@ -1,22 +1,67 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace payslipV2
 {
     class CSVInputOutput : IInputOutput
     {
+        private string _filepath;
+        
         public EmployeeData ReadData()
         {
-            // READ CSV ?? Implement this later.
+            // Read from CSV file
+            Console.WriteLine("Please type the filepath that you would like to read from...\n");
+            Console.WriteLine("EG: /Users/Alex.Ruddell/Documents/payslipV2/payslip.csv");
+            _filepath = Console.ReadLine();
             
-            EmployeeData Employee = new EmployeeData();
+            var FileReader = new StreamReader(_filepath);
+            List<string> csvData = new List<string>();
             
-            // Read name
-            Console.Write("Please input your first name: ");
-            string nameFirst = Console.ReadLine();
-            Console.Write("Please input your surname: ");
-            string nameLast = Console.ReadLine();
-            Employee.Name = nameFirst + " " + nameLast;
+            string line = FileReader.ReadLine(); // Read headings line
+            string[] values = line.Split(",");
+
+            while (!FileReader.EndOfStream)
+            {
+                line = FileReader.ReadLine();
+                csvData.Add(line);
+            }
+
+            List<EmployeeData> EmployeeList = new List<EmployeeData>();
+            EmployeeData Employee;
+            
+            foreach (var item in csvData)
+            {
+                values = item.Split(","); 
+                Employee = new EmployeeData();
+                Employee.Name = values[0] + " " + values[1];
+                Employee.AnnualSalary = Double.Parse(values[2]);
+                //values[3] = values[3].Take(values[3].Length - 1).ToString();
+
+                List<char> super = new List<char>(values[3]);
+                super.RemoveAt(values[3].Length - 1);
+                //values[3] = super.ToArray();
+                //Console.WriteLine(values[3]);
+                
+                
+                //Employee.SuperRate = Double.Parse(super);
+                Employee.PayPeriod = values[4] + " - " + values[5];
+                
+                EmployeeList.Add(Employee);
+            }
+            
+            // var values = line.Split(",");
+            Console.WriteLine("Here are your values...\n");
+            foreach (var item in EmployeeList)
+            {
+                Console.WriteLine(item.Name);
+            }
+
+
+            // ------------------------------------------- //
+            // CONSOLE IO FUNCTIONALITY
+            /*
+             
 
             // Read salary
             string salary;
@@ -36,25 +81,15 @@ namespace payslipV2
                     repeat = true;
                 }
             }
-
-            // Read super
-            Console.Write("Please enter your super rate: ");
-            string super = Console.ReadLine();
-            Employee.SuperRate = Double.Parse(super);
             
-            // Read pay period
-            Console.Write("Please enter your payment start date: ");
-            string dateStart = Console.ReadLine();
-            Console.Write("Please enter your payment end date: ");
-            string dateEnd = Console.ReadLine();
-            Employee.PayPeriod = dateStart + " - " + dateEnd;
+            */
 
-            return Employee;
+            return EmployeeList[0];
         }
 
         public void PrintPayslip(Payslip Payslip)
         {
-            string filepath = @"/Users/Alex.Ruddell/Documents/payslipV2/payslip.csv";
+            string filepath = "/Users/Alex.Ruddell/Documents/payslipV2/payslip.csv";
             Console.WriteLine("\nYour CSV is being written to:\n" + String.Format(filepath));
             Console.WriteLine("\nWriting...");
 
