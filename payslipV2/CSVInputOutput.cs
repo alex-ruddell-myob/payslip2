@@ -1,21 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Mime;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace payslipV2
 {
     class CSVInputOutput : IInputOutput
     {
         private string _filepath;
-        private string _basepath = "/Users/Alex.Ruddell/Documents/payslipV2/";
-        
+
         public List<EmployeeData> ReadData()
         {
+            // Get project directory...
+            string basepath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/";
+
             // Read from CSV file
             Console.WriteLine("Please type the file name you would like to read...\n");
-            Console.Write("File: /Users/Alex.Ruddell/Documents/payslipV2/: ");
-            
-            _filepath = Path.Combine(_basepath, Console.ReadLine());
+            Console.Write("File: " + basepath + ": ");
+
+            _filepath = Path.Combine(basepath, Console.ReadLine());
             
             var FileReader = new StreamReader(_filepath);
             List<string> csvData = new List<string>();
@@ -75,6 +79,7 @@ namespace payslipV2
         public CSVInputOutput()
         {
             Console.WriteLine("Welcome to the payslip generator! Get ready for the most fun you've had ever!!!");
+            Console.WriteLine("You are working in: " + Directory.GetCurrentDirectory());
         }
 
         /*
