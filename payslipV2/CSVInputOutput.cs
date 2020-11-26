@@ -1,49 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Mime;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace payslipV2
 {
     class CSVInputOutput : IInputOutput
     {
-        private string _filepath;
+        CSVHandler _CSVHandler = new CSVHandler();
+        
+        private string _readpath;
+        private string _writepath;
 
         public List<EmployeeData> ReadData()
         {
-            // Get project directory...
-            string basepath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/";
-
-            // Read from CSV file
-            Console.WriteLine("Please type the file name you would like to read...\n");
-            Console.Write("File: " + basepath + ": ");
-
-            _filepath = Path.Combine(basepath, Console.ReadLine());
-            
-            var FileReader = new StreamReader(_filepath);
-            List<string> csvData = new List<string>();
-            
-            string line = FileReader.ReadLine(); // Read headings line
-
-            while (!FileReader.EndOfStream)
-            {
-                line = FileReader.ReadLine();
-                csvData.Add(line);
-            }
-
             List<EmployeeData> EmployeeList = new List<EmployeeData>();
-            EmployeeData Employee = new EmployeeData();
             
-            foreach (var item in csvData)
+            List<string> CSVData = _CSVHandler.GetData(_readpath);
+            
+            foreach (var row in CSVData)
             {
-                string[] values = item.Split(","); 
-                Employee = new EmployeeData();
-                Employee.Name = values[0] + " " + values[1];
-                Employee.AnnualSalary = Double.Parse(values[2]);
-                Employee.SuperRate = Double.Parse(values[3].TrimEnd('%'));
-                Employee.PayPeriod = values[4] + " - " + values[5];
-                
+                EmployeeData Employee = _CSVHandler.ConvertToEmployee(row);
                 EmployeeList.Add(Employee);
             }
 
@@ -52,34 +28,29 @@ namespace payslipV2
 
         public void PrintPayslip(List<Payslip> Payslips)
         {
-            string filepath = "/Users/Alex.Ruddell/Documents/payslipV2/payslip.csv"; // absolute!
-            Console.WriteLine("\nYour CSV is being written to:\n" + String.Format(filepath));
-            Console.WriteLine("\nWriting...");
-            
-            var FileWriter = new StreamWriter(filepath);
-            // Write initial line
-            var titleLine = "name,pay period,gross income,income tax,net income,super";
-            FileWriter.WriteLine(titleLine);
+            var FileWriter = new StreamWriter(_writepath);
+            FileWriter.WriteLine("name,pay period,gross income,income tax,net income,super");
             FileWriter.Flush();
             
             // Write data line for each payslip
             foreach (Payslip Payslip in Payslips)
             {
-                string dataLine = Payslip.Name + "," + Payslip.PayPeriod + "," + Payslip.MonthlyGrossIncome +
-                                  "," + Payslip.MonthlyTax + "," + Payslip.MonthlyNetIncome + "," + Payslip.MonthlySuper;
+                string dataLine = _CSVHandler.FormatPayslip(Payslip);
                 FileWriter.WriteLine(dataLine);
                 FileWriter.Flush();    
             }
             
-            // Write final line to console
-            Console.WriteLine("\nYour payslip has been generated!");
-            Console.WriteLine("\nThank you for using MYOB!");
+            Console.WriteLine("\nYour payslip has been generated. Thank you for using MYOB!");
         }
 
         public CSVInputOutput()
         {
             Console.WriteLine("Welcome to the payslip generator! Get ready for the most fun you've had ever!!!");
-            Console.WriteLine("You are working in: " + Directory.GetCurrentDirectory());
+            
+            // Retrieve file paths on instantiation
+            string _basepath = _CSVHandler.GetBasePath();
+            _readpath = _CSVHandler.GetReadPath(_basepath);
+            _writepath = _CSVHandler.GetWritePath(_basepath);
         }
 
         /*
