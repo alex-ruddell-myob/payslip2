@@ -8,6 +8,11 @@ namespace payslipV2
         public List<EmployeeData> ReadData()
         {
             EmployeeData Employee = new EmployeeData();
+            
+            // TODO(Alex): Could write some multiple-console-input functionality in order to utilise this better
+            //             >> Currently it is just used as the interface requires a list be returned
+            //             >> Keep prompting the user for input? Who knows!
+            
             List<EmployeeData> EmployeeList = new List<EmployeeData>();
             
             // Read name
@@ -47,7 +52,7 @@ namespace payslipV2
             Console.Write("Please enter your payment end date: ");
             string dateEnd = Console.ReadLine();
             Employee.PayPeriod = dateStart + " - " + dateEnd;
-
+            
             EmployeeList.Add(Employee);
             
             return EmployeeList;

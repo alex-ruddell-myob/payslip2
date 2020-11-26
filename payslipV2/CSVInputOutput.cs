@@ -7,13 +7,15 @@ namespace payslipV2
     class CSVInputOutput : IInputOutput
     {
         private string _filepath;
+        private string _basepath = "/Users/Alex.Ruddell/Documents/payslipV2/";
         
         public List<EmployeeData> ReadData()
         {
             // Read from CSV file
-            Console.WriteLine("Please type the filepath that you would like to read from...\n");
-            Console.WriteLine("EG: /Users/Alex.Ruddell/Documents/payslipV2/payslip.csv");
-            _filepath = Console.ReadLine();
+            Console.WriteLine("Please type the file name you would like to read...\n");
+            Console.Write("File: /Users/Alex.Ruddell/Documents/payslipV2/: ");
+            
+            _filepath = Path.Combine(_basepath, Console.ReadLine());
             
             var FileReader = new StreamReader(_filepath);
             List<string> csvData = new List<string>();
