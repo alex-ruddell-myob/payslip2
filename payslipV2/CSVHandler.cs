@@ -44,17 +44,5 @@ namespace payslipV2
             // TODO(alex): Find a better way of doing this.
             return Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/";
         }
-        
-        public string GetReadPath(string basepath)
-        {
-            Console.Write("Please type the file name you would like to read...\nFile: " + basepath + ": ");
-            return Path.Combine(basepath, Console.ReadLine());
-        }
-
-        public string GetWritePath(string basepath)
-        {
-            Console.Write("Please type the file name you would like to write to...\nFile: " + basepath + ": ");
-            return Path.Combine(basepath, Console.ReadLine());
-        }
     }
 }

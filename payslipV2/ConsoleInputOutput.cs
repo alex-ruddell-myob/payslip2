@@ -9,10 +9,9 @@ namespace payslipV2
         {
             EmployeeData Employee = new EmployeeData();
             
-            // TODO(Alex): Could write some multiple-console-input functionality in order to utilise this better
+            // TODO(Alex): Could write some multiple-console-input functionality in order to List better
             //             >> Currently it is just used as the interface requires a list be returned
-            //             >> Keep prompting the user for input? Who knows!
-            
+            //             >> Allow the user to input multiple employees?
             List<EmployeeData> EmployeeList = new List<EmployeeData>();
             
             // Read name

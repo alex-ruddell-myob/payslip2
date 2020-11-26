@@ -48,9 +48,14 @@ namespace payslipV2
             Console.WriteLine("Welcome to the payslip generator! Get ready for the most fun you've had ever!!!");
             
             // Retrieve file paths on instantiation
-            string _basepath = _CSVHandler.GetBasePath();
-            _readpath = _CSVHandler.GetReadPath(_basepath);
-            _writepath = _CSVHandler.GetWritePath(_basepath);
+            string basepath = _CSVHandler.GetBasePath();
+            
+            Console.Write("Please type the file name you would like to read...\nFile: " + basepath + ": ");
+            _readpath =  Path.Combine(basepath, Console.ReadLine());
+            
+            Console.Write("Please type the file name you would like to write to...\nFile: " + basepath + ": ");
+            _writepath = Path.Combine(basepath, Console.ReadLine());
+
         }
     }
 }
