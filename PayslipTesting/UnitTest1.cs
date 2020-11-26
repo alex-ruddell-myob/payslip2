@@ -16,6 +16,7 @@ namespace PayslipTesting
             _financialCalculator = new FinancialCalculator();
         }
         
+        // Add comments!
         // Tests prescribed by payslip kata
         [TestCase(60050, 922)]
         [TestCase(120000, 2669)]

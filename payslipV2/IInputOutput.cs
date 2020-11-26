@@ -1,8 +1,10 @@
+using System.Collections.Generic;
+
 namespace payslipV2
 {
     public interface IInputOutput
     {
-        EmployeeData ReadData();
-        void PrintPayslip(Payslip Payslip);
+        List<EmployeeData> ReadData();
+        void PrintPayslip(List<Payslip> Payslips);
     }
 }

@@ -1,12 +1,14 @@
 using System;
+using System.Collections.Generic;
 
 namespace payslipV2
 {
     class ConsoleInputOutput : IInputOutput
     {
-        public EmployeeData ReadData()
+        public List<EmployeeData> ReadData()
         {
             EmployeeData Employee = new EmployeeData();
+            List<EmployeeData> EmployeeList = new List<EmployeeData>();
             
             // Read name
             Console.Write("Please input your first name: ");
@@ -46,19 +48,25 @@ namespace payslipV2
             string dateEnd = Console.ReadLine();
             Employee.PayPeriod = dateStart + " - " + dateEnd;
 
-            return Employee;
+            EmployeeList.Add(Employee);
+            
+            return EmployeeList;
         }
 
-        public void PrintPayslip(Payslip Payslip)
+        public void PrintPayslip(List<Payslip> Payslips)
         {
             // Print payslip as per kata specification
-            Console.WriteLine("\nYour payslip has been generated! \n");
-            Console.WriteLine("Name: " + Payslip.Name);
-            Console.WriteLine("Pay Period: " + Payslip.PayPeriod);
-            Console.WriteLine("Gross Income: " + Payslip.MonthlyGrossIncome);
-            Console.WriteLine("Income Tax: " + Payslip.MonthlyTax);
-            Console.WriteLine("Net Income: " + Payslip.MonthlyNetIncome);
-            Console.WriteLine("Super: " + Payslip.MonthlySuper);
+            foreach (Payslip Payslip in Payslips)
+            {
+                Console.WriteLine("\nYour payslip has been generated! \n");
+                Console.WriteLine("Name: " + Payslip.Name);
+                Console.WriteLine("Pay Period: " + Payslip.PayPeriod);
+                Console.WriteLine("Gross Income: " + Payslip.MonthlyGrossIncome);
+                Console.WriteLine("Income Tax: " + Payslip.MonthlyTax);
+                Console.WriteLine("Net Income: " + Payslip.MonthlyNetIncome);
+                Console.WriteLine("Super: " + Payslip.MonthlySuper);
+            }
+            
             Console.WriteLine("\nThank you for using MYOB!");
         }
 

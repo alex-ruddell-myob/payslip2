@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace payslipV2
 {
@@ -10,12 +11,16 @@ namespace payslipV2
         static void Main(string[] args)
         {
             // Read Data
-            EmployeeData Employee = SystemInputOutput.ReadData();
+            List<EmployeeData> Employees = SystemInputOutput.ReadData();
 
-            Payslip Payslip = FinancialCalculator.GeneratePayslip(Employee);
+            // Generate all payslips
+            List<Payslip> Payslips = new List<Payslip>();
+            foreach (EmployeeData Employee in Employees)
+            {
+                Payslips.Add(FinancialCalculator.GeneratePayslip(Employee));
+            }
             
-            // Print data
-            SystemInputOutput.PrintPayslip(Payslip);
+            SystemInputOutput.PrintPayslip(Payslips);
         }
     }
 }
