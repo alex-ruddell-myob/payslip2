@@ -39,23 +39,19 @@ namespace payslipV2
                 FileWriter.WriteLine(dataLine);
                 FileWriter.Flush();    
             }
+
+            string filepath =  Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
             
-            Console.WriteLine("\nYour payslip has been generated. Thank you for using MYOB!");
+            Console.WriteLine("\nYour payslip has been generated as a CSV at " + filepath + "/" + 
+                              _writepath.TrimStart('/','.') + "\nThank you for using MYOB!");
         }
 
-        public CSVInputOutput()
+        public CSVInputOutput(string[] args)
         {
-            Console.WriteLine("Welcome to the payslip generator! Get ready for the most fun you've had ever!!!");
+            Console.WriteLine("Welcome to the payslip generator!");
             
-            // Retrieve file paths on instantiation
-            string basepath = _CSVHandler.GetBasePath();
-            
-            Console.Write("Please type the file name you would like to read...\nFile: " + basepath + ": ");
-            _readpath =  Path.Combine(basepath, Console.ReadLine());
-            
-            Console.Write("Please type the file name you would like to write to...\nFile: " + basepath + ": ");
-            _writepath = Path.Combine(basepath, Console.ReadLine());
-
+            _readpath = args[0];
+            _writepath = args[1];
         }
     }
 }

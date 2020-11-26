@@ -1,26 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace payslipV2
 {
     class Program
     {
-        public static IInputOutput SystemInputOutput = new CSVInputOutput();
+        public static IInputOutput SystemInputOutput;
         public static FinancialCalculator FinancialCalculator = new FinancialCalculator();
+        public static bool _run = true;
         
         static void Main(string[] args)
         {
-            // Read Data
-            List<EmployeeData> Employees = SystemInputOutput.ReadData();
-
-            // Generate all payslips
-            List<Payslip> Payslips = new List<Payslip>();
-            foreach (EmployeeData Employee in Employees)
+            if (args.Length > 0)
             {
-                Payslips.Add(FinancialCalculator.GeneratePayslip(Employee));
+                SystemInputOutput = new CSVInputOutput(args);
+            }
+            else
+            {
+                SystemInputOutput = new ConsoleInputOutput();
             }
             
-            SystemInputOutput.PrintPayslip(Payslips);
+            
+            // Read Data
+            List<EmployeeData> Employees = new List<EmployeeData>();
+            try
+            {
+                Employees = SystemInputOutput.ReadData();
+            }
+            catch ( FileNotFoundException )
+            {
+                Console.WriteLine("Input file not found. No payslip generated.");
+                _run = false;
+            }
+
+            if (_run)
+            {
+                // Generate all payslips
+                List<Payslip> Payslips = new List<Payslip>();
+                foreach (EmployeeData Employee in Employees)
+                {
+                    Payslips.Add(FinancialCalculator.GeneratePayslip(Employee));
+                }
+            
+                SystemInputOutput.PrintPayslip(Payslips);
+            }
+            
         }
     }
 }

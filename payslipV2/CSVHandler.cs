@@ -39,10 +39,5 @@ namespace payslipV2
             
             return data;
         }
-        public string GetBasePath()
-        {
-            // TODO(alex): Find a better way of doing this.
-            return Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/";
-        }
     }
 }
