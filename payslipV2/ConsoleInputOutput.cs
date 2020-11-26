@@ -79,12 +79,5 @@ namespace payslipV2
         {
             Console.WriteLine("Welcome to the payslip generator! Get ready for the most fun you've had ever!!!");
         }
-
-        /*
-        ~ConsoleInputOutput()
-        {
-            Console.WriteLine("\nThank you for using MYOB!");
-        }
-        */
     }
 }

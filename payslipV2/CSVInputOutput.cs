@@ -52,12 +52,5 @@ namespace payslipV2
             _readpath = _CSVHandler.GetReadPath(_basepath);
             _writepath = _CSVHandler.GetWritePath(_basepath);
         }
-
-        /*
-        ~CSVInputOutput()
-        {
-            Console.WriteLine("\nThank you for using MYOB!");
-        }
-        */
     }
 }
