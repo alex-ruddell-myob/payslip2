@@ -7,68 +7,67 @@ namespace payslipV2
     {
         public List<EmployeeData> ReadData()
         {
-            EmployeeData Employee = new EmployeeData();
+            var employee = new EmployeeData();
             
             // TODO(Alex): Could write some multiple-console-input functionality in order to List better
             //             >> Currently it is just used as the interface requires a list be returned
             //             >> Allow the user to input multiple employees?
-            List<EmployeeData> EmployeeList = new List<EmployeeData>();
+            var employeeList = new List<EmployeeData>();
             
             // Read name
             Console.Write("Please input your first name: ");
-            string nameFirst = Console.ReadLine();
+            var nameFirst = Console.ReadLine();
             Console.Write("Please input your surname: ");
-            string nameLast = Console.ReadLine();
-            Employee.Name = nameFirst + " " + nameLast;
+            var nameLast = Console.ReadLine();
+            employee.Name = nameFirst + " " + nameLast;
 
             // Read salary
-            string salary;
-            bool repeat = true;
+            var repeat = true;
             while (repeat)
             {
                 try
                 {
                     Console.Write("Please enter your annual salary: ");
-                    salary = Console.ReadLine();
-                    Employee.AnnualSalary = Double.Parse(salary);
+                    var salary = Console.ReadLine();
+                    employee.AnnualSalary = double.Parse(salary);
                     repeat = false;
                 }
-                catch (FormatException e)
+                catch (FormatException)
                 {
-                    Console.WriteLine("Error in UI.ReadData(): Invalid casting to double");
+                    Console.WriteLine("Invalid salary entered. Please enter a numerical value.");
                     repeat = true;
                 }
             }
 
             // Read super
             Console.Write("Please enter your super rate: ");
-            string super = Console.ReadLine();
-            Employee.SuperRate = Double.Parse(super);
+            var super = Console.ReadLine();
+            employee.SuperRate = Double.Parse(super);
             
             // Read pay period
             Console.Write("Please enter your payment start date: ");
-            string dateStart = Console.ReadLine();
+            var dateStart = Console.ReadLine();
             Console.Write("Please enter your payment end date: ");
-            string dateEnd = Console.ReadLine();
-            Employee.PayPeriod = dateStart + " - " + dateEnd;
+            var dateEnd = Console.ReadLine();
+            employee.PayPeriod = dateStart + " - " + dateEnd;
             
-            EmployeeList.Add(Employee);
+            employeeList.Add(employee);
             
-            return EmployeeList;
+            return employeeList;
         }
 
-        public void PrintPayslip(List<Payslip> Payslips)
+        public void PrintPayslip(List<Payslip> payslips)
         {
             // Print payslip as per kata specification
-            foreach (Payslip Payslip in Payslips)
+            foreach (var payslip in payslips)
             {
                 Console.WriteLine("\nYour payslip has been generated! \n");
-                Console.WriteLine("Name: " + Payslip.Name);
-                Console.WriteLine("Pay Period: " + Payslip.PayPeriod);
-                Console.WriteLine("Gross Income: " + Payslip.MonthlyGrossIncome);
-                Console.WriteLine("Income Tax: " + Payslip.MonthlyTax);
-                Console.WriteLine("Net Income: " + Payslip.MonthlyNetIncome);
-                Console.WriteLine("Super: " + Payslip.MonthlySuper);
+                Console.WriteLine("Name: " + payslip.Name);
+                Console.WriteLine("Pay Period: " + payslip.PayPeriod);
+                Console.WriteLine("Gross Income: " + payslip.MonthlyGrossIncome);
+                Console.WriteLine("Income Tax: " + payslip.MonthlyTax);
+                Console.WriteLine("Net Income: " + payslip.MonthlyNetIncome);
+                Console.WriteLine("Super: " + payslip.MonthlySuper);
             }
             
             Console.WriteLine("\nThank you for using MYOB!");

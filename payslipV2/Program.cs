@@ -6,27 +6,27 @@ namespace payslipV2
 {
     class Program
     {
-        public static IInputOutput SystemInputOutput;
-        public static FinancialCalculator FinancialCalculator = new FinancialCalculator();
-        public static bool _run = true;
+        private static IInputOutput _systemInputOutput;
+        private static FinancialCalculator _financialCalculator = new FinancialCalculator();
+        private static bool _run = true;
         
         static void Main(string[] args)
         {
             if (args.Length > 0)
             {
-                SystemInputOutput = new CSVInputOutput(args);
+                _systemInputOutput = new CSVInputOutput(args);
             }
             else
             {
-                SystemInputOutput = new ConsoleInputOutput();
+                _systemInputOutput = new ConsoleInputOutput();
             }
             
             
             // Read Data
-            List<EmployeeData> Employees = new List<EmployeeData>();
+            List<EmployeeData> employees = new List<EmployeeData>();
             try
-            {
-                Employees = SystemInputOutput.ReadData();
+            { // put this somewhere earlier and better, exit as early as possible, object.validate, could also do in constructor
+                employees = _systemInputOutput.ReadData();
             }
             catch ( FileNotFoundException )
             {
@@ -34,18 +34,16 @@ namespace payslipV2
                 _run = false;
             }
 
-            if (_run)
-            {
-                // Generate all payslips
-                List<Payslip> Payslips = new List<Payslip>();
-                foreach (EmployeeData Employee in Employees)
-                {
-                    Payslips.Add(FinancialCalculator.GeneratePayslip(Employee));
-                }
+            if (!_run) return;
             
-                SystemInputOutput.PrintPayslip(Payslips);
+            var payslips = new List<Payslip>();
+            foreach (var employee in employees)
+            {
+                payslips.Add(_financialCalculator.GeneratePayslip(employee));
             }
             
+            _systemInputOutput.PrintPayslip(payslips);
+
         }
     }
 }

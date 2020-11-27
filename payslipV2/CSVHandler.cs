@@ -6,12 +6,12 @@ namespace payslipV2
 {
     class CSVHandler
     {
-        public string FormatPayslip(Payslip Payslip)
+        public static string FormatPayslip(Payslip payslip)
         {
-            return Payslip.Name + "," + Payslip.PayPeriod + "," + Payslip.MonthlyGrossIncome +
-                              "," + Payslip.MonthlyTax + "," + Payslip.MonthlyNetIncome + "," + Payslip.MonthlySuper;
+            return payslip.Name + "," + payslip.PayPeriod + "," + payslip.MonthlyGrossIncome +
+                              "," + payslip.MonthlyTax + "," + payslip.MonthlyNetIncome + "," + payslip.MonthlySuper;
         }
-        public EmployeeData ConvertToEmployee(string row)
+        public static EmployeeData ConvertToEmployee(string row)
         {
             EmployeeData Employee = new EmployeeData();
             
@@ -24,16 +24,16 @@ namespace payslipV2
 
             return Employee;
         }
-        public List<string> GetData(string readpath)
+        public static List<string> GetData(string readpath)
         {
             List<string> data = new List<string>();
             
-            var FileReader = new StreamReader(readpath);
-            string line = FileReader.ReadLine(); // Read headings line
+            var fileReader = new StreamReader(readpath);
+            string line = fileReader.ReadLine(); // Read headings line
 
-            while (!FileReader.EndOfStream)
+            while (!fileReader.EndOfStream)
             {
-                line = FileReader.ReadLine();
+                line = fileReader.ReadLine();
                 data.Add(line);
             }
             

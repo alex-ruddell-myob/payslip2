@@ -6,52 +6,50 @@ namespace payslipV2
 {
     class CSVInputOutput : IInputOutput
     {
-        CSVHandler _CSVHandler = new CSVHandler();
-        
-        private string _readpath;
-        private string _writepath;
+        private readonly string _readPath;
+        private readonly string _writePath;
 
         public List<EmployeeData> ReadData()
         {
-            List<EmployeeData> EmployeeList = new List<EmployeeData>();
+            var employeeList = new List<EmployeeData>();
             
-            List<string> CSVData = _CSVHandler.GetData(_readpath);
+            List<string> csvData = CSVHandler.GetData(_readPath);
             
-            foreach (var row in CSVData)
+            foreach (var row in csvData)
             {
-                EmployeeData Employee = _CSVHandler.ConvertToEmployee(row);
-                EmployeeList.Add(Employee);
+                var employee = CSVHandler.ConvertToEmployee(row);
+                employeeList.Add(employee);
             }
 
-            return EmployeeList;
+            return employeeList;
         }
 
         public void PrintPayslip(List<Payslip> Payslips)
         {
-            var FileWriter = new StreamWriter(_writepath);
-            FileWriter.WriteLine("name,pay period,gross income,income tax,net income,super");
-            FileWriter.Flush();
+            var fileWriter = new StreamWriter(_writePath);
+            fileWriter.WriteLine("name,pay period,gross income,income tax,net income,super");
+            fileWriter.Flush();
             
             // Write data line for each payslip
-            foreach (Payslip Payslip in Payslips)
+            foreach (var payslip in Payslips)
             {
-                string dataLine = _CSVHandler.FormatPayslip(Payslip);
-                FileWriter.WriteLine(dataLine);
-                FileWriter.Flush();    
+                var dataLine = CSVHandler.FormatPayslip(payslip);
+                fileWriter.WriteLine(dataLine);
+                fileWriter.Flush();    
             }
 
-            string filepath =  Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
+            var filepath =  Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
             
             Console.WriteLine("\nYour payslip has been generated as a CSV at " + filepath + "/" + 
-                              _writepath.TrimStart('/','.') + "\nThank you for using MYOB!");
+                              _writePath.TrimStart('/','.') + "\nThank you for using MYOB!");
         }
 
         public CSVInputOutput(string[] args)
         {
             Console.WriteLine("Welcome to the payslip generator!");
             
-            _readpath = args[0];
-            _writepath = args[1];
+            _readPath = args[0];
+            _writePath = args[1];
         }
     }
 }

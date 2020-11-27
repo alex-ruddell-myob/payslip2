@@ -5,6 +5,6 @@ namespace payslipV2
     public interface IInputOutput
     {
         List<EmployeeData> ReadData();
-        void PrintPayslip(List<Payslip> Payslips);
+        void PrintPayslip(List<Payslip> payslips);
     }
 }
