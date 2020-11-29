@@ -75,7 +75,7 @@ namespace payslipV2
 
         public ConsoleInputOutput()
         {
-            Console.WriteLine("Welcome to the payslip generator! Get ready for the most fun you've had ever!!!");
+            Console.WriteLine("Welcome to the payslip generator!");
         }
     }
 }

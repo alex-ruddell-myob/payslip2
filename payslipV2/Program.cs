@@ -10,23 +10,50 @@ namespace payslipV2
         private static FinancialCalculator _financialCalculator = new FinancialCalculator();
         private static bool _run = true;
         
+        
+        private static IInputOutput _systemInput;
+        private static IInputOutput _systemOutput;
+        
+        
         static void Main(string[] args)
         {
-            if (args.Length > 0)
+            
+            // TODO(Alex) Make this simpler
+            // e.g. _system.Initialise(args), house _systemInput and _systemOutput
+            if (args.Length == 2)
             {
-                _systemInputOutput = new CSVInputOutput(args);
+                if (args[0] == "Console")
+                {
+                    _systemInput = new ConsoleInputOutput();
+                }
+                else
+                {
+                    _systemInput = new CSVInputOutput(args);
+                }
+
+                if (args[1] == "Console")
+                {
+                    _systemOutput = new ConsoleInputOutput();
+                }
+                else
+                {
+                    _systemOutput = new CSVInputOutput(args);
+                }
             }
             else
             {
-                _systemInputOutput = new ConsoleInputOutput();
+                Console.WriteLine("Incorrect number of program input arguments. Please enter an input and output" +
+                                        " argument before running the program.");
+                return;
             }
             
             
             // Read Data
             List<EmployeeData> employees = new List<EmployeeData>();
             try
-            { // put this somewhere earlier and better, exit as early as possible, object.validate, could also do in constructor
-                employees = _systemInputOutput.ReadData();
+            {   // TODO(Alex): Put this somewhere earlier and better, exit as early as possible,
+                // Use function object.validate, could also do in constructor?
+                employees = _systemInput.ReadData();
             }
             catch ( FileNotFoundException )
             {
@@ -42,7 +69,7 @@ namespace payslipV2
                 payslips.Add(_financialCalculator.GeneratePayslip(employee));
             }
             
-            _systemInputOutput.PrintPayslip(payslips);
+            _systemOutput.PrintPayslip(payslips);
 
         }
     }
