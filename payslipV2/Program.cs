@@ -6,39 +6,18 @@ namespace payslipV2
 {
     class Program
     {
-        private static IInputOutput _systemInputOutput;
+        private static IInput _systemInput;
+        private static IOutput _systemOutput;
         private static FinancialCalculator _financialCalculator = new FinancialCalculator();
         private static bool _run = true;
         
-        
-        private static IInputOutput _systemInput;
-        private static IInputOutput _systemOutput;
-        
-        
         static void Main(string[] args)
         {
-            
-            // TODO(Alex) Make this simpler
-            // e.g. _system.Initialise(args), house _systemInput and _systemOutput
             if (args.Length == 2)
             {
-                if (args[0] == "Console")
-                {
-                    _systemInput = new ConsoleInputOutput();
-                }
-                else
-                {
-                    _systemInput = new CSVInputOutput(args);
-                }
-
-                if (args[1] == "Console")
-                {
-                    _systemOutput = new ConsoleInputOutput();
-                }
-                else
-                {
-                    _systemOutput = new CSVInputOutput(args);
-                }
+                // Connect system input and output interfaces
+                _systemInput = IInput.ConnectInput(args[0]);
+                _systemOutput = IOutput.ConnectOutput(args[1]);
             }
             else
             {
@@ -47,8 +26,6 @@ namespace payslipV2
                 return;
             }
             
-            
-            // Read Data
             List<EmployeeData> employees = new List<EmployeeData>();
             try
             {   // TODO(Alex): Put this somewhere earlier and better, exit as early as possible,

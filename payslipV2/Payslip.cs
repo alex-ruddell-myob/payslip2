@@ -15,10 +15,10 @@ namespace payslipV2
         
         public Payslip()
         {
-            this.monthlyGrossIncome = 0.00;
-            this.monthlyTax = 0.00;
-            this.monthlyNetIncome = 0.00;
-            this.monthlySuper = 0.00;
+            monthlyGrossIncome = 0.00;
+            monthlyTax = 0.00;
+            monthlyNetIncome = 0.00;
+            monthlySuper = 0.00;
         }
         
         // Getters & Setters
