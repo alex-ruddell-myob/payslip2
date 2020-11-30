@@ -9,7 +9,7 @@ namespace payslipV2
         private static IInput _systemInput;
         private static IOutput _systemOutput;
         
-        private static FinancialCalculator _financialCalculator = new FinancialCalculator();
+        private static readonly FinancialCalculator FinancialCalculator = new FinancialCalculator();
 
         static void Main(string[] args)
         {
@@ -22,11 +22,14 @@ namespace payslipV2
             
             foreach (var employee in employees)
             {
-                payslips.Add(_financialCalculator.GeneratePayslip(employee));
+                payslips.Add(FinancialCalculator.GeneratePayslip(employee));
             }
             
             _systemOutput.PrintPayslip(payslips);
         }
+        
+        // change this to testable code 
+        // test input and output
 
         static bool Initialise(string[] args)
         {
