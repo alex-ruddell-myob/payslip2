@@ -5,21 +5,23 @@ namespace payslipV2
     public class FinancialCalculator
     {
         // Tax rates correspond to the salary brackets stated
-        private double[] taxRate = new double[5] {0, 0.19, 0.325, 0.37, 0.45};
-        private double[] salaryBracket = new double[5] {0, 18200, 37000, 87000, 180000};
+        private readonly double[] _taxRate = new double[5] {0, 0.19, 0.325, 0.37, 0.45};
+        private readonly double[] _salaryBracket = new double[5] {0, 18200, 37000, 87000, 180000};
 
-        public Payslip GeneratePayslip(EmployeeData Employee)
+        public Payslip GeneratePayslip(EmployeeData employee)
         {
-            Payslip Payslip = new Payslip();
+            Payslip payslip = new Payslip
+            {
+                Name = employee.Name,
+                PayPeriod = employee.PayPeriod,
+                MonthlyGrossIncome = CalculateMonthlyGrossIncome(employee.AnnualSalary),
+                MonthlyTax = CalculateMonthlyTax(employee.AnnualSalary)
+            };
 
-            Payslip.Name = Employee.Name;
-            Payslip.PayPeriod = Employee.PayPeriod;
-            Payslip.MonthlyGrossIncome = CalculateMonthlyGrossIncome(Employee.AnnualSalary);
-            Payslip.MonthlyTax = CalculateMonthlyTax(Employee.AnnualSalary);
-            Payslip.MonthlyNetIncome = CalculateMonthlyNetIncome(Payslip.MonthlyGrossIncome, Payslip.MonthlyTax);
-            Payslip.MonthlySuper = CalculateMonthlySuper(Employee.AnnualSalary, Employee.SuperRate);
+            payslip.MonthlyNetIncome = CalculateMonthlyNetIncome(payslip.MonthlyGrossIncome, payslip.MonthlyTax);
+            payslip.MonthlySuper = CalculateMonthlySuper(employee.AnnualSalary, employee.SuperRate);
 
-            return Payslip;
+            return payslip;
         }
         
         public double CalculateMonthlyTax(double annualSalary)
@@ -27,12 +29,12 @@ namespace payslipV2
             double annualTax = 0.00;
             
             // Sums tax contributions based on salary tax brackets
-            for (int i = salaryBracket.Length - 1; i >= 0; i--)
+            for (int i = _salaryBracket.Length - 1; i >= 0; i--)
             {
-                if (annualSalary > salaryBracket[i])
+                if (annualSalary > _salaryBracket[i])
                 {
-                    annualTax += (annualSalary - salaryBracket[i]) * taxRate[i];
-                    annualSalary = salaryBracket[i];
+                    annualTax += (annualSalary - _salaryBracket[i]) * _taxRate[i];
+                    annualSalary = _salaryBracket[i];
                 }
             }
 
