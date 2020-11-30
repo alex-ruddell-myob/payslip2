@@ -8,46 +8,62 @@ namespace payslipV2
     {
         private static IInput _systemInput;
         private static IOutput _systemOutput;
-        private static FinancialCalculator _financialCalculator = new FinancialCalculator();
-        private static bool _run = true;
         
+        private static FinancialCalculator _financialCalculator = new FinancialCalculator();
+
         static void Main(string[] args)
         {
-            if (args.Length == 2)
-            {
-                // Connect system input and output interfaces
-                _systemInput = IInput.ConnectInput(args[0]);
-                _systemOutput = IOutput.ConnectOutput(args[1]);
-            }
-            else
-            {
-                Console.WriteLine("Incorrect number of program input arguments. Please enter an input and output" +
-                                        " argument before running the program.");
-                return;
-            }
-            
-            List<EmployeeData> employees = new List<EmployeeData>();
-            try
-            {   // TODO(Alex): Put this somewhere earlier and better, exit as early as possible,
-                // Use function object.validate, could also do in constructor?
-                employees = _systemInput.ReadData();
-            }
-            catch ( FileNotFoundException )
-            {
-                Console.WriteLine("Input file not found. No payslip generated.");
-                _run = false;
-            }
+            bool run = Initialise(args);
+            if (!run) return;
 
-            if (!_run) return;
+            List<EmployeeData> employees = _systemInput.ReadData();
             
             var payslips = new List<Payslip>();
+            
             foreach (var employee in employees)
             {
                 payslips.Add(_financialCalculator.GeneratePayslip(employee));
             }
             
             _systemOutput.PrintPayslip(payslips);
+        }
 
+        static bool Initialise(string[] args)
+        {
+            // Check arguments
+            if (args.Length != 2)
+            {
+                Console.WriteLine("Incorrect number of program input arguments. Please enter an input and output" +
+                                  " argument before running the program.");
+                return false;
+            }
+            
+            // Initialise system input
+            if (args[0] == "Console")
+            {
+                _systemInput = new ConsoleInput();
+            }
+            else if (File.Exists(args[0])) 
+            { 
+                _systemInput = new CSVInput(args[0]);    
+            }
+            else
+            {
+                Console.WriteLine("File does not exist.");
+                return false;
+            }
+            
+            // Initialise system output
+            if (args[1] == "Console")
+            {
+                _systemOutput = new ConsoleOutput();
+            }
+            else
+            {
+                _systemOutput = new CSVOutput(args[1]);
+            }
+
+            return true;
         }
     }
 }
